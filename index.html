@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de PON - Centro Oficial de Descargas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
+        }
+        .glow-effect-blue {
+            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800/80 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-diagram-project text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white tracking-tight">Gestor de PON</h1>
+                    <p class="text-xs text-slate-400">Portal Oficial de Descargas</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2"></span>
+                    Servidor en Línea
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow flex flex-col justify-center">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/60 text-slate-300 text-xs font-medium mb-6">
+                <i class="fa-solid fa-arrows-rotate text-brand-500 animate-spin-slow"></i>
+                <span>Sincronización en Tiempo Real</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                Descarga la última versión de <span class="bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">Gestor de PON</span>
+            </h2>
+            <p class="text-lg text-slate-300">
+                Obtén el instalador para tu computadora o la aplicación móvil para tu celular. Esta página siempre mantiene los enlaces y versiones actualizados automáticamente.
+            </p>
+        </div>
+
+        <!-- Download Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+
+            <!-- PC Card -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:border-brand-500/50 glow-effect relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-all"></div>
+                
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl">
+                            <i class="fa-brands fa-windows"></i>
+                        </div>
+                        <span id="pc-version-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+                            Cargando versión...
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2">Versión para Computadora</h3>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                        Instalador oficial para Windows. Incluye la vista de tablas completa, exportación a Excel, notificaciones de escritorio e importación masiva.
+                    </p>
+
+                    <ul class="space-y-2.5 mb-8 text-xs text-slate-300">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-brand-400"></i>
+                            <span>Compatible con Windows 10 y 11</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-brand-400"></i>
+                            <span>Instalador automático listo para usar</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-brand-400"></i>
+                            <span>Actualizaciones OTA directas en el sistema</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <a id="btn-download-pc" href="#" target="_blank" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-brand-600 to-emerald-500 hover:from-brand-500 hover:to-emerald-400 text-white font-semibold flex items-center justify-center gap-3 shadow-lg shadow-brand-600/30 transition-all transform active:scale-95 text-sm cursor-pointer">
+                        <i class="fa-solid fa-download text-base"></i>
+                        <span>Descargar Instalador PC (.exe)</span>
+                    </a>
+                    <p class="text-center text-[11px] text-slate-500 mt-3">
+                        Última versión disponible en GitHub Releases
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mobile Card -->
+            <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/50 glow-effect-blue relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all"></div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                            <i class="fa-brands fa-android"></i>
+                        </div>
+                        <span id="mobile-version-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+                            Cargando versión...
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2">Aplicación Móvil (Android)</h3>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                        App nativa para celulares y tablets Android. Registra pedidos, consulta estados en vivo y recibe alertas instantáneas en la palma de tu mano.
+                    </p>
+
+                    <div class="flex items-center gap-4 bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50 mb-8">
+                        <div class="bg-white p-1.5 rounded-lg shrink-0">
+                            <img id="qr-code-img" src="" alt="QR Code" class="w-16 h-16">
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-white">Escanea con tu Celular</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Apunta la cámara de tu teléfono al código QR para descargar la APK directamente en el móvil.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <a id="btn-download-mobile" href="#" target="_blank" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white font-semibold flex items-center justify-center gap-3 shadow-lg shadow-blue-600/30 transition-all transform active:scale-95 text-sm cursor-pointer">
+                        <i class="fa-solid fa-mobile-screen text-base"></i>
+                        <span>Descargar APK Móvil (.apk)</span>
+                    </a>
+                    <p class="text-center text-[11px] text-slate-500 mt-3">
+                        Compatible con Android 7.0 o superior
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Info / Instructions Box -->
+        <div class="glass-card rounded-2xl p-6 md:p-8 border border-slate-800">
+            <h4 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-emerald-400"></i>
+                Guía Rápida de Instalación
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+                <div class="space-y-2">
+                    <p class="font-semibold text-slate-200">En Computadora (Windows):</p>
+                    <ol class="list-decimal list-inside space-y-1 text-slate-400">
+                        <li>Haz clic en el botón verde <strong>Descargar Instalador PC</strong>.</li>
+                        <li>Ejecuta el archivo <code class="bg-slate-800 px-1.5 py-0.5 rounded text-emerald-400">Instalador_GestorPON_Oficial_v...exe</code>.</li>
+                        <li>Sigue los pasos en pantalla. El acceso directo se creará automáticamente.</li>
+                    </ol>
+                </div>
+                <div class="space-y-2">
+                    <p class="font-semibold text-slate-200">En Teléfono Celular (Android):</p>
+                    <ol class="list-decimal list-inside space-y-1 text-slate-400">
+                        <li>Haz clic en <strong>Descargar APK Móvil</strong> o escanea el código QR.</li>
+                        <li>Al abrir la descarga, permite la instalación de fuentes desconocidas si tu celular lo solicita.</li>
+                        <li>Abre la app "Gestor de PON" e inicia sesión con tu usuario.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-900/40 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>© Gestor de PON — Todos los derechos reservados.</p>
+            <p class="flex items-center gap-2">
+                <span>Alojado en GitHub Pages</span>
+                <span>•</span>
+                <span id="last-updated" class="text-slate-400">Actualizado en tiempo real</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script to dynamically fetch versions and download links from Firebase -->
+    <script>
+        const CONFIG_URL = 'https://firestore.googleapis.com/v1/projects/gestor-pon-reo98/databases/(default)/documents/system/config';
+        const DEFAULT_PC_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.3/Instalador_GestorPON_Oficial_v1.3.3.exe';
+        const DEFAULT_MOBILE_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.2/GestionDePON_v1.3.2.apk';
+
+        async function fetchConfig() {
+            try {
+                const response = await fetch(CONFIG_URL);
+                if (!response.ok) throw new Error('Error HTTP: ' + response.status);
+                const data = await response.json();
+                const fields = data.fields || {};
+
+                const versionPc = fields.version_pc?.stringValue || '1.3.3';
+                const urlPc = fields.url_pc?.stringValue || DEFAULT_PC_URL;
+
+                const versionMovil = fields.version_movil?.stringValue || '1.3.2';
+                const urlMovil = fields.url_movil?.stringValue || DEFAULT_MOBILE_URL;
+
+                // Update UI elements
+                document.getElementById('pc-version-badge').innerText = 'v' + versionPc;
+                document.getElementById('btn-download-pc').href = urlPc;
+
+                document.getElementById('mobile-version-badge').innerText = 'v' + versionMovil;
+                document.getElementById('btn-download-mobile').href = urlMovil;
+
+                // Generate QR Code for mobile URL
+                const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(urlMovil);
+                document.getElementById('qr-code-img').src = qrUrl;
+
+                document.getElementById('last-updated').innerText = 'Estado: Sincronizado en Vivo';
+
+            } catch (err) {
+                console.warn('Usando valores predeterminados por error de red:', err);
+                document.getElementById('pc-version-badge').innerText = 'v1.3.3';
+                document.getElementById('btn-download-pc').href = DEFAULT_PC_URL;
+
+                document.getElementById('mobile-version-badge').innerText = 'v1.3.2';
+                document.getElementById('btn-download-mobile').href = DEFAULT_MOBILE_URL;
+
+                const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(DEFAULT_MOBILE_URL);
+                document.getElementById('qr-code-img').src = qrUrl;
+            }
+        }
+
+        // Run fetch on load
+        fetchConfig();
+    </script>
+</body>
+</html>
