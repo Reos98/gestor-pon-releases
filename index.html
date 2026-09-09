@@ -355,8 +355,8 @@
     <!-- Script to dynamically fetch versions and download links from Firebase -->
     <script>
         const CONFIG_URL = 'https://firestore.googleapis.com/v1/projects/gestor-pon-reo98/databases/(default)/documents/system/config';
-        const DEFAULT_PC_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.3/Instalador_GestorPON_Oficial_v1.3.3.exe';
-        const DEFAULT_MOBILE_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.2/GestionDePON_v1.3.2.apk';
+        const DEFAULT_PC_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.5/Instalador_GestorPON_Oficial_v1.3.5.exe';
+        const DEFAULT_MOBILE_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.3/GestionDePON_v1.3.3.apk';
 
         async function fetchConfig() {
             try {
@@ -365,10 +365,10 @@
                 const data = await response.json();
                 const fields = data.fields || {};
 
-                const versionPc = fields.version_pc?.stringValue || '1.3.3';
+                const versionPc = fields.version_pc?.stringValue || '1.3.5';
                 const urlPc = fields.url_pc?.stringValue || DEFAULT_PC_URL;
 
-                const versionMovil = fields.version_movil?.stringValue || '1.3.2';
+                const versionMovil = fields.version_movil?.stringValue || '1.3.3';
                 const urlMovil = fields.url_movil?.stringValue || DEFAULT_MOBILE_URL;
 
                 // Update UI elements
@@ -386,10 +386,10 @@
 
             } catch (err) {
                 console.warn('Usando valores predeterminados por error de red:', err);
-                document.getElementById('pc-version-badge').innerText = 'v1.3.3';
+                document.getElementById('pc-version-badge').innerText = 'v1.3.5';
                 document.getElementById('btn-download-pc').href = DEFAULT_PC_URL;
 
-                document.getElementById('mobile-version-badge').innerText = 'v1.3.2';
+                document.getElementById('mobile-version-badge').innerText = 'v1.3.3';
                 document.getElementById('btn-download-mobile').href = DEFAULT_MOBILE_URL;
 
                 const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(DEFAULT_MOBILE_URL);
