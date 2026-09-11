@@ -353,52 +353,48 @@
     </footer>
 
     <!-- Script to dynamically fetch versions and download links from Firebase -->
-    <script>
-        const CONFIG_URL = 'https://firestore.googleapis.com/v1/projects/gestor-pon-reo98/databases/(default)/documents/system/config';
-        const DEFAULT_PC_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.4.2/Instalador_GestorPON_Oficial_v1.4.2.exe';
-        const DEFAULT_MOBILE_URL = 'https://github.com/Reos98/gestor-pon-releases/releases/download/v1.3.3/GestionDePON_v1.3.3.apk';
-
-        async function fetchConfig() {
-            try {
-                const response = await fetch(CONFIG_URL);
-                if (!response.ok) throw new Error('Error HTTP: ' + response.status);
-                const data = await response.json();
-                const fields = data.fields || {};
-
-                const versionPc = fields.version_pc?.stringValue || '1.4.2';
-                const urlPc = fields.url_pc?.stringValue || DEFAULT_PC_URL;
-
-                const versionMovil = fields.version_movil?.stringValue || '1.3.3';
-                const urlMovil = fields.url_movil?.stringValue || DEFAULT_MOBILE_URL;
-
-                // Update UI elements
-                document.getElementById('pc-version-badge').innerText = 'v' + versionPc;
-                document.getElementById('btn-download-pc').href = urlPc;
-
-                document.getElementById('mobile-version-badge').innerText = 'v' + versionMovil;
-                document.getElementById('btn-download-mobile').href = urlMovil;
-
-                // Generate high resolution QR Code (300x300) for mobile URL
-                const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(urlMovil);
-                document.getElementById('qr-code-img').src = qrUrl;
-
-                document.getElementById('last-updated').innerText = 'Estado: Sincronizado en Vivo';
-
-            } catch (err) {
-                console.warn('Usando valores predeterminados por error de red:', err);
-                document.getElementById('pc-version-badge').innerText = 'v1.4.2';
-                document.getElementById('btn-download-pc').href = DEFAULT_PC_URL;
-
-                document.getElementById('mobile-version-badge').innerText = 'v1.3.3';
-                document.getElementById('btn-download-mobile').href = DEFAULT_MOBILE_URL;
-
-                const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(DEFAULT_MOBILE_URL);
-                document.getElementById('qr-code-img').src = qrUrl;
-            }
+    <script id="gestorpon-download-config">
+    const CONFIG_URL = "https://gestor-pon-reo98-default-rtdb.firebaseio.com/system/config.json";
+    const FALLBACK_CONFIG = {"version_pc": "1.4.3", "url_pc": "https://github.com/Reos98/gestor-pon-releases/releases/download/v1.4.3/Instalador_GestorPON_Oficial_v1.4.3.exe", "version_movil": "1.4.0", "url_movil": "https://github.com/Reos98/gestor-pon-releases/releases/download/v1.4.0/GestionDePON_v1.4.0.apk"};
+    function validRelease(data, target) {
+      const version = data && data['version_' + target];
+      const url = data && data['url_' + target];
+      if (typeof version !== 'string' || !/^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/.test(version)) return false;
+      const file = target === 'pc' ? 'Instalador_GestorPON_Oficial_v' + version + '.exe' : 'GestionDePON_v' + version + '.apk';
+      return url === 'https://github.com/Reos98/gestor-pon-releases/releases/download/v' + version + '/' + file;
+    }
+    function renderConfig(data, online) {
+      for (const [target, suffix] of [['pc','pc'], ['movil','mobile']]) {
+        const selected = validRelease(data, target) ? data : FALLBACK_CONFIG;
+        const button = document.getElementById('btn-download-' + suffix);
+        const badge = document.getElementById(suffix + '-version-badge');
+        if (!validRelease(selected, target)) {
+          button.removeAttribute('href');
+          button.setAttribute('aria-disabled', 'true');
+          badge.textContent = 'Descarga no disponible';
+          continue;
         }
-
-        // Run fetch on load
-        fetchConfig();
+        button.href = selected['url_' + target];
+        button.rel = 'noopener noreferrer';
+        button.removeAttribute('aria-disabled');
+        badge.textContent = 'v' + selected['version_' + target];
+        if (target === 'movil') document.getElementById('qr-code-img').src =
+          'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(button.href);
+      }
+      document.getElementById('last-updated').textContent = online ? 'Estado: sincronizado' : 'Sin conexión: última descarga publicada';
+    }
+    async function fetchConfig() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(CONFIG_URL, {signal: controller.signal, cache: 'no-store'});
+        if (!response.ok) throw new Error('Config no disponible');
+        renderConfig(await response.json(), true);
+      } catch (error) { renderConfig(FALLBACK_CONFIG, false); }
+      finally { clearTimeout(timeout); }
+    }
+    renderConfig(FALLBACK_CONFIG, false);
+    fetchConfig();
     </script>
 </body>
 </html>
